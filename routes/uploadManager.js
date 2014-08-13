@@ -28,18 +28,34 @@ var options = {
 
 var uploader = require('blueimp-file-upload-expressjs')(options);
 
-
+var Mongoose = require('mongoose');
+var Images = require('../models/image.js');
+var async = require('async');
 module.exports = function (router) {
     router.get('/upload', function(req, res) {
       uploader.get(req, res, function (obj) {
-            res.send(JSON.stringify(obj)); 
+        res.send(JSON.stringify(obj)); 
       });
-      
     });
 
     router.post('/upload', function(req, res) {
       uploader.post(req, res, function (obj) {
-            res.send(JSON.stringify(obj)); 
+        var newobject = {
+            files: []
+        }
+        console.log(obj)
+        async.forEach(obj.files, function(file, callback) {
+            newimage = new Images(file)
+            console.log(newimage)
+            file._id = newimage._id;
+            newobject.files.push(file); 
+            newimage.save();
+            callback();
+        }, function(err) {
+            if (err) return next(err);
+            res.send(JSON.stringify(newobject)); 
+        });
+
       });
       
     });
