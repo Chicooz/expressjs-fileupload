@@ -8,7 +8,6 @@ var bodyParser = require('body-parser');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var Mongoose = require('mongoose');
-var db = Mongoose.connect('mongodb://localhost/fupload');
 var Images = require('./models/image.js');
 
 var app = express();
