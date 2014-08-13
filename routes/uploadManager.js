@@ -27,7 +27,7 @@ var options = {
 };
 
 var uploader = require('blueimp-file-upload-expressjs')(options);
-console.log(uploader)
+
 
 module.exports = function (router) {
     router.get('/upload', function(req, res) {
