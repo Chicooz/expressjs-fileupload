@@ -29,7 +29,6 @@ var options = {
 var uploader = require('blueimp-file-upload-expressjs')(options);
 
 var Mongoose = require('mongoose');
-var db = Mongoose.connect('mongodb://localhost/fupload');
 var Images = require('../models/image.js');
 var async = require('async');
 
