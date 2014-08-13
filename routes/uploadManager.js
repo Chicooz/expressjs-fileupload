@@ -46,10 +46,11 @@ module.exports = function (router) {
         }
         async.forEach(obj.files, function(file, callback) {
             newimage = new Images(file)
-            newimage.save();
-            file._id = newimage._id;
-            newobject.files.push(file); 
-            callback();
+            newimage.save(function(err,nimage,numberAffected){
+                file._id = nimage._id;
+                newobject.files.push(file); 
+                callback();               
+            });
         }, function(err) {
             if (err) return next(err);
             res.send(JSON.stringify(newobject)); 
