@@ -42,13 +42,15 @@ module.exports = function (router) {
     router.post('/upload', function(req, res) {
       uploader.post(req, res, function (obj) {
         var newobject = {
-            files: []
+            files: [],
+            ids:[]
         }
         async.forEach(obj.files, function(file, callback) {
             newimage = new Images(file)
             newimage.save(function(err,nimage,numberAffected){
                 file._id = nimage._id;
                 newobject.files.push(file); 
+                newobject.ids.push(file._id); 
                 callback();               
             });
         }, function(err) {
