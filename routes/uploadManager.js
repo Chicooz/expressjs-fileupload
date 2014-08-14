@@ -48,7 +48,7 @@ module.exports = function (router) {
         async.forEach(obj.files, function(file, callback) {
             newimage = new Images(file)
             newimage.save(function(err,nimage,numberAffected){
-                file._id = nimage._id;
+                file._id = newimage._id;
                 newobject.files.push(file); 
                 newobject.ids.push(file._id); 
                 callback();               
